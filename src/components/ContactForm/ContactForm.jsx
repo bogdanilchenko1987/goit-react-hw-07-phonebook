@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addNewContact } from '../../redux/contactsSlice';
+import { selectContacts } from '../../redux/selectors';
 
 import { Button, Form, Input, Label } from './ContactForm.styled';
 import Modal from 'components/Modal/Modal';
@@ -9,7 +10,9 @@ import Modal from 'components/Modal/Modal';
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const [modalActive, setModalActive] = useState('');
+  const [modalActive, setModalActive] = useState(false);
+
+  const contacts = useSelector(selectContacts);
 
   const dispatch = useDispatch();
 
@@ -28,14 +31,16 @@ export const ContactForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
-    dispatch(addNewContact({ name, number }));
+    contacts.some(contact => contact.name === name)
+      ? alert(`${name} is already in your contacts`)
+      : dispatch(addNewContact({ name, number }));
 
     setName('');
     setNumber('');
     setModalActive(false);
   };
 
+  console.log(modalActive);
   return (
     <>
       <Modal active={modalActive} setActive={setModalActive}>

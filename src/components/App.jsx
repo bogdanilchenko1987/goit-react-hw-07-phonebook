@@ -20,7 +20,6 @@ export const App = () => {
       </ContactsSection>
       <ContactsSection title="Contacts">
         <ContactsFilter />
-
         <ContactList />
       </ContactsSection>
     </>

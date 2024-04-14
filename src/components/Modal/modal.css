@@ -38,4 +38,10 @@
   position: relative;
   top: 0%;
   left: 95%;
+  transition: 0.5s all;
+}
+
+.modal__close:hover,
+.modal__close:hover {
+  color: blue;
 }

@@ -21,7 +21,6 @@ export const fetchContacts = createAsyncThunk(
 export const addNewContact = createAsyncThunk(
   'contacts/addNewContact',
   async function ({ name, number }, { rejectWithValue, dispatch, getState }) {
-    const contacts = getState().contacts.items;
     try {
       const newContact = {
         name,
@@ -43,9 +42,7 @@ export const addNewContact = createAsyncThunk(
       }
       const data = await response.json();
 
-      contacts.some(contact => contact.name === data.name)
-        ? alert(`${data.name} is already in your contacts`)
-        : dispatch(addContact(data));
+      dispatch(addContact(data));
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -104,9 +101,6 @@ const contactsSlice = createSlice({
   reducers: {
     addContact(state, action) {
       state.items.push(action.payload);
-      // state.items.some(contact => contact.name === action.payload.name)
-      //   ? alert(`${action.payload.name} is already in your contacts`)
-      //   : state.items.push(action.payload);
     },
 
     deleteContact(state, action) {

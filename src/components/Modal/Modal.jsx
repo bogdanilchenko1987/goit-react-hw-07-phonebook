@@ -1,6 +1,7 @@
 import './modal.css';
 import React from 'react';
 import { IoCloseCircleOutline } from 'react-icons/io5';
+import PropTypes from 'prop-types';
 
 function Modal({ active, setActive, children }) {
   return (
@@ -23,3 +24,9 @@ function Modal({ active, setActive, children }) {
 }
 
 export default Modal;
+
+Modal.propTypes = {
+  active: PropTypes.bool,
+  setActive: PropTypes.func,
+  children: PropTypes.node.isRequired,
+};

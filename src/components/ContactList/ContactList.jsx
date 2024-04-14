@@ -1,5 +1,5 @@
 import { ContactListItem } from 'components/ContactListItem/ContactListItem';
-import { List } from './ContactList.styled';
+import { ErrorText, List } from './ContactList.styled';
 
 import { useSelector } from 'react-redux';
 import {
@@ -7,6 +7,7 @@ import {
   selectFilteredContacts,
   selectIsLoading,
 } from '../../redux/selectors';
+import { ThreeCircles } from 'react-loader-spinner';
 
 export const ContactList = () => {
   const filteredContacts = useSelector(selectFilteredContacts);
@@ -15,8 +16,16 @@ export const ContactList = () => {
 
   return (
     <>
-      {isLoading && <b>LOADING...</b>}
-      {error && <b>{error}</b>}
+      {isLoading && (
+        <ThreeCircles
+          visible={true}
+          height="40"
+          width="40"
+          color="blue"
+          ariaLabel="three-circles-loading"
+        />
+      )}
+      {error && <ErrorText>{error}</ErrorText>}
 
       {filteredContacts.length > 0 && (
         <List>
@@ -31,38 +40,3 @@ export const ContactList = () => {
   );
 };
 
-// ----------------------
-
-// import { useSelector } from 'react-redux';
-
-// import { ContactListItem } from 'components/ContactListItem/ContactListItem';
-// import { List } from './ContactList.styled';
-// import {
-//   selectContacts,
-//   selectFilter,
-//   selectFilteredContacts,
-// } from '../../redux/selectors';
-
-// const filterContacts = (filtered, contacts) => {
-//   const FilterlowerCase = filtered.toLowerCase();
-//   return contacts.filter(contact =>
-//     contact.name.toLowerCase().includes(FilterlowerCase)
-//   );
-// };
-
-// export const ContactList = () => {
-//   const contacts = useSelector(state => state.contacts.items);
-//   const filter = useSelector(state => state.filter);
-
-//   const filteredContacts = filterContacts(contacts, filter);
-//   return (
-//     <List>
-//       {contacts &&
-//         filteredContacts.map(({ id, name, number }) => {
-//           return (
-//             <ContactListItem key={id} id={id} name={name} number={number} />
-//           );
-//         })}
-//     </List>
-//   );
-// };
