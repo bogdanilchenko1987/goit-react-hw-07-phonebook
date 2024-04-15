@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewContact } from '../../redux/contactsSlice';
+import { addNewContact } from '../../redux/operations';
 import { selectContacts } from '../../redux/selectors';
 
 import { Button, Form, Input, Label } from './ContactForm.styled';
@@ -31,7 +31,7 @@ export const ContactForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    contacts.some(contact => contact.name === name)
+    contacts.some(contact => contact.name === name.trim(''))
       ? alert(`${name} is already in your contacts`)
       : dispatch(addNewContact({ name, number }));
 
@@ -40,7 +40,6 @@ export const ContactForm = () => {
     setModalActive(false);
   };
 
-  console.log(modalActive);
   return (
     <>
       <Modal active={modalActive} setActive={setModalActive}>
