@@ -34,8 +34,12 @@ export const ContactListItem = ({ id, name, number }) => {
       <ListItem>
         {name} : {number}
         <div>
-          <Delete type="button" onClick={() => dispatch(removeContact(id))} />{' '}
-          <Edit onClick={() => setModalActive(true)} />
+          <Delete
+            title="Delete contact"
+            type="button"
+            onClick={() => dispatch(removeContact(id))}
+          />{' '}
+          <Edit title="Edit contact" onClick={() => setModalActive(true)} />
         </div>
         <Modal active={modalActive} setActive={setModalActive}>
           <Form action="submit" autoComplete="off" onSubmit={handleEdit}>
